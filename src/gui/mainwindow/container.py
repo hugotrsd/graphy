@@ -19,7 +19,6 @@ class Container(QtWidgets.QWidget):
     def __saveToConfig(self):
         settingsInst.setValue("mainwindow/container_splitter", self.splitterRef.saveState())
 
-
     def __initUI(self):
         layout = QtWidgets.QHBoxLayout()
         splitter = QtWidgets.QSplitter()
@@ -30,7 +29,8 @@ class Container(QtWidgets.QWidget):
         splitter.addWidget(Canvas())
         splitter.addWidget(QtWidgets.QPushButton("Graph infos"))
         splitterPreviousState = settingsInst.value("mainwindow/container_splitter")
-        if splitterPreviousState: splitter.restoreState(splitterPreviousState)
+        if splitterPreviousState:
+            splitter.restoreState(splitterPreviousState)
 
         layout.addWidget(splitter)
         self.setLayout(layout)

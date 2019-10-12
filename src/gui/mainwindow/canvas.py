@@ -31,8 +31,6 @@ class Canvas(QtWidgets.QGraphicsView):
             self.translate(translation.x(), translation.y())
 
             self.dragStart = event.pos()
-        
-
 
 
 """

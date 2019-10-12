@@ -56,7 +56,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # File menu
         fileMenu = menuBar.addMenu(self._translate("&File"))
 
-        ## Fullscreen
+        # Fullscreen
         fileMenu.addAction(QtWidgets.QAction(
             self._translate("&Fullscreen"),
             parent=fileMenu,
@@ -64,7 +64,7 @@ class MainWindow(QtWidgets.QMainWindow):
             triggered=self.toggleFullscreen
         ))
 
-        ## Quit the app
+        # Quit the app
         fileMenu.addAction(QtWidgets.QAction(
             self._translate("&Quit"),
             parent=fileMenu,
