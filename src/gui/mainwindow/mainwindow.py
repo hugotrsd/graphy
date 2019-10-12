@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
+from gui.mainwindow.container import Container
 
 import logging
 
@@ -11,7 +12,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setMinimumSize(1000, 700)
         self.setWindowIcon(QtGui.QIcon("res/icon.svg"))
 
-        self.initUI()
+        self.__initUI()
 
     def toggleFullscreen(self, forceMode: bool = False, forceValue: bool = False):
         """ Toggle between fullscreen and normal display (set forceMode to True to use this as a setter) """
@@ -49,13 +50,13 @@ class MainWindow(QtWidgets.QMainWindow):
             if self.isFullScreen():
                 self.toggleFullscreen()
 
-    def initUI(self):
+    def __initUI(self):
         menuBar = self.menuBar()
 
         # File menu
         fileMenu = menuBar.addMenu(self._translate("&File"))
 
-        # Fullscreen
+        ## Fullscreen
         fileMenu.addAction(QtWidgets.QAction(
             self._translate("&Fullscreen"),
             parent=fileMenu,
@@ -63,10 +64,20 @@ class MainWindow(QtWidgets.QMainWindow):
             triggered=self.toggleFullscreen
         ))
 
-        # Quit the app
+        ## Quit the app
         fileMenu.addAction(QtWidgets.QAction(
             self._translate("&Quit"),
             parent=fileMenu,
             shortcut=QtGui.QKeySequence.Quit,
             triggered=self.close
         ))
+
+        # Help
+        helpMenu = menuBar.addMenu(self._translate("&Help"))
+        helpMenu.addAction(QtWidgets.QAction(
+            self._translate("&About"),
+            parent=helpMenu,
+            triggered=lambda: logging.debug("TODO")
+        ))
+
+        self.setCentralWidget(Container())

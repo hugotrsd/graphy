@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtWidgets
+from gui.mainwindow.mainwindow import MainWindow
 
-import gui.mainwindow
 
 import logging
 import sys
@@ -22,7 +22,7 @@ class Application:
         self.interpreterTimer.start(200)
         self.interpreterTimer.timeout.connect(lambda: None)
 
-        self.mainWindow = gui.mainwindow.MainWindow()
+        self.mainWindow = MainWindow()
         self.mainWindow.show()
 
     def __del__(self):
