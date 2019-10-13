@@ -36,6 +36,7 @@ class Container(QtWidgets.QWidget):
 
         self.canvas = Canvas()
         splitter.addWidget(self.canvas)
+        splitter.setCollapsible(1, False)
 
         self.rightPanel = RightPanel()
         splitter.addWidget(self.rightPanel)
