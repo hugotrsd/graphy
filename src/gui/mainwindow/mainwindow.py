@@ -7,8 +7,9 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self._translate = lambda msg: QtCore.QCoreApplication.translate("MainWindow", msg)
-
         self.setWindowIcon(QtGui.QIcon("res/icon.svg"))
+
+        self.container = None
 
         self.__initUI()
 
@@ -78,4 +79,5 @@ class MainWindow(QtWidgets.QMainWindow):
             triggered=lambda: logging.debug("TODO")
         ))
 
-        self.setCentralWidget(Container())
+        self.container = Container()
+        self.setCentralWidget(self.container)

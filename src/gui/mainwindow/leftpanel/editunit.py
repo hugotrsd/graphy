@@ -27,9 +27,9 @@ class EditUnit(QtWidgets.QFrame):
         unitNameLayout = QtWidgets.QHBoxLayout()
         unitNameLayout.addWidget(QtWidgets.QLabel("Name: "))  # TODO tr
         unitNameLineEdit = QtWidgets.QLineEdit()
+        unitNameLineEdit.setMaximumWidth(EditUnit.LINE_EDIT_WIDTH)
         unitNameLineEdit.setText("Oui")
         unitNameLineEdit.setEnabled(False)
-        unitNameLineEdit.setMaximumWidth(EditUnit.LINE_EDIT_WIDTH)
         unitNameLayout.addWidget(unitNameLineEdit)
         layout.addLayout(unitNameLayout)
 

@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
+from gui.mainwindow.canvas.graphicsvertex import GraphicsVertex
 
 
 class Canvas(QtWidgets.QGraphicsView):
@@ -8,8 +9,9 @@ class Canvas(QtWidgets.QGraphicsView):
 
         self.graphicsScene = QtWidgets.QGraphicsScene(self)
 
-        self.graphicsScene.setBackgroundBrush(QtCore.Qt.darkGray)
-        self.graphicsScene.addEllipse(0, 0, 50, 50)
+        self.graphicsScene.addItem(GraphicsVertex())
+
+        self.graphicsScene.setBackgroundBrush(QtCore.Qt.lightGray)
         self.graphicsScene.setSceneRect(-2000, -2000, 4000, 4000)
 
         self.setScene(self.graphicsScene)

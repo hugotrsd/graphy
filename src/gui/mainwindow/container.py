@@ -9,13 +9,18 @@ class Container(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self.splitterRef = None
+        self.leftPanel = None
+        self.canvas = None
+        self.rightPanel = None
+
+        self.__initUI()
+
         # Use a timer to prevent lag due to constant writing to disk
         self._saveToConfigTimer = QtCore.QTimer()
         self._saveToConfigTimer.setSingleShot(True)
         self._saveToConfigTimer.setInterval(100)
         self._saveToConfigTimer.timeout.connect(self.__saveToConfig)
-
-        self.__initUI()
 
     def __saveToConfig(self):
         core.app.Application.CONFIG.setValue("mainwindow/container_splitter", self.splitterRef.saveState())
@@ -26,11 +31,14 @@ class Container(QtWidgets.QWidget):
         splitter.splitterMoved.connect(lambda: self._saveToConfigTimer.start())
         self.splitterRef = splitter
 
-        splitter.addWidget(LeftPanel())
+        self.leftPanel = LeftPanel()
+        splitter.addWidget(self.leftPanel)
 
-        splitter.addWidget(Canvas())
+        self.canvas = Canvas()
+        splitter.addWidget(self.canvas)
 
-        splitter.addWidget(RightPanel())
+        self.rightPanel = RightPanel()
+        splitter.addWidget(self.rightPanel)
 
         splitterPreviousState = core.app.Application.CONFIG.value("mainwindow/container_splitter")
         if splitterPreviousState:
