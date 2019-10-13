@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 import core.app
 from gui.mainwindow.leftpanel.leftpanel import LeftPanel
-from gui.mainwindow.canvas.canvas import Canvas
+from gui.mainwindow.middlepanel.middlepanel import MiddlePanel
 from gui.mainwindow.rightpanel.rightpanel import RightPanel
 
 
@@ -11,7 +11,7 @@ class Container(QtWidgets.QWidget):
 
         self.splitterRef = None
         self.leftPanel = None
-        self.canvas = None
+        self.middlePanel = None
         self.rightPanel = None
 
         self.__initUI()
@@ -34,8 +34,8 @@ class Container(QtWidgets.QWidget):
         self.leftPanel = LeftPanel()
         splitter.addWidget(self.leftPanel)
 
-        self.canvas = Canvas()
-        splitter.addWidget(self.canvas)
+        self.middlePanel = MiddlePanel()
+        splitter.addWidget(self.middlePanel)
         splitter.setCollapsible(1, False)
 
         self.rightPanel = RightPanel()

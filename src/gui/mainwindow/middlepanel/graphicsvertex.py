@@ -1,8 +1,12 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 class GraphicsVertex(QtWidgets.QGraphicsEllipseItem):
-    def __init__(self, parent=None):
+    def __init__(self, pos: QtCore.QPoint, parent=None):
         super().__init__()
+
+        self.setCursor(QtCore.Qt.ArrowCursor)
+        self.setFlag(QtWidgets.QGraphicsItem.ItemIsMovable)
+        self.setFlag(QtWidgets.QGraphicsItem.ItemIsSelectable)
 
         pen = QtGui.QPen()
         pen.setWidth(4)
@@ -15,13 +19,19 @@ class GraphicsVertex(QtWidgets.QGraphicsEllipseItem):
         brush.setStyle(QtCore.Qt.SolidPattern)
         brush.setColor(QtCore.Qt.green)
 
-        self.setRect(0, 0, 50, 50)
+        self.setPos(pos)
+        self.setRect(QtCore.QRectF(0, 0, 50, 50))
         self.setPen(pen)
         self.setBrush(brush)
 
-        self.label = QtWidgets.QGraphicsTextItem(self)
-
         text = "120"
+        self.label = QtWidgets.QGraphicsTextItem(self)
+        self.label.setPlainText(text)
+        
+        # Disable mouse events for the label
+        self.label.setEnabled(False)
+        self.label.setAcceptedMouseButtons(QtCore.Qt.NoButton)
+
         # See: https://stackoverflow.com/a/2204501/9178828
         # I don't fully understand how it works, but it works..
         factorWidth = (self.rect().width() - pen.width()) / QtWidgets.qApp.fontMetrics().width(text)
@@ -32,10 +42,8 @@ class GraphicsVertex(QtWidgets.QGraphicsEllipseItem):
             font.setPointSizeF(font.pointSizeF() * factor)
             self.label.setFont(font)
 
-        self.label.setPlainText(text)
+        self.label.setDefaultTextColor(QtCore.Qt.black)  # Otherwise the font color is set by the theme
         self.label.setPos(
             self.rect().width() / 2 - self.label.boundingRect().width() / 2,
             self.rect().height() / 2 - self.label.boundingRect().height() / 2
         )
-
-
