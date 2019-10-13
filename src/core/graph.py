@@ -1,13 +1,20 @@
-from collections import namedtuple
 import json
+from collections import namedtuple
 
 
 class Graph:
     def __init__(self):
         self.title = "untitled"
+        
         self.directed = False
+        self.vertex_weighted = False
+        self.edge_weighted = False
+
         self.vertices = []
+        self.vertices_weights = []
+
         self.edges = []
+        self.edges_weights = []
 
     def saveToFile(self, filename):
         filename = filename.replace(".json", "")  # Prevent doubled extension

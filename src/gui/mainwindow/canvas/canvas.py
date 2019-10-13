@@ -4,6 +4,8 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 class Canvas(QtWidgets.QGraphicsView):
     def __init__(self, parent=None):
         super().__init__()
+        self.setMinimumSize(500, 500)
+
         self.graphicsScene = QtWidgets.QGraphicsScene(self)
 
         self.graphicsScene.setBackgroundBrush(QtCore.Qt.darkGray)

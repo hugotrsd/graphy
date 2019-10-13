@@ -1,18 +1,21 @@
-from PyQt5 import QtCore, QtWidgets
-from gui.mainwindow.mainwindow import MainWindow
-
-
 import logging
 import sys
 import signal
+from PyQt5 import QtCore, QtWidgets, QtGui
+import gui.mainwindow.mainwindow
 
 
 class Application:
+    CONFIG = None
+
     def __init__(self):
         logging.basicConfig(level=logging.NOTSET)
 
+        Application.CONFIG = QtCore.QSettings("config.ini", QtCore.QSettings.IniFormat)
+
         QtCore.QCoreApplication.setApplicationName("Graphs")
         QtCore.QCoreApplication.setOrganizationName("Graphs")
+        QtWidgets.qApp.setDesktopSettingsAware(False)  # TODO remove
         self.qApplication = QtWidgets.QApplication(sys.argv)
 
         # Install the signal handeler
@@ -22,11 +25,13 @@ class Application:
         self.interpreterTimer.start(200)
         self.interpreterTimer.timeout.connect(lambda: None)
 
-        self.mainWindow = MainWindow()
+        self.mainWindow = gui.mainwindow.mainwindow.MainWindow()
         self.mainWindow.show()
 
     def __del__(self):
-        pass
+        if Application.CONFIG is not None:
+            del Application.CONFIG
+        Application.CONFIG = None
 
     def run(self):
         logging.info("Starting application")

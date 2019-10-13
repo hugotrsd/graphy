@@ -1,7 +1,6 @@
+import logging
 from PyQt5 import QtCore, QtWidgets, QtGui
 from gui.mainwindow.container import Container
-
-import logging
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -9,7 +8,6 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self._translate = lambda msg: QtCore.QCoreApplication.translate("MainWindow", msg)
 
-        self.setMinimumSize(1000, 700)
         self.setWindowIcon(QtGui.QIcon("res/icon.svg"))
 
         self.__initUI()

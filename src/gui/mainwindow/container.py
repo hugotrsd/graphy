@@ -1,7 +1,8 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
-from gui.mainwindow.menu import Menu
-from gui.mainwindow.canvas import Canvas
-from core.config import settingsInst
+import core.app
+from gui.mainwindow.leftpanel.leftpanel import LeftPanel
+from gui.mainwindow.canvas.canvas import Canvas
+from gui.mainwindow.rightpanel.rightpanel import RightPanel
 
 
 class Container(QtWidgets.QWidget):
@@ -17,7 +18,7 @@ class Container(QtWidgets.QWidget):
         self.__initUI()
 
     def __saveToConfig(self):
-        settingsInst.setValue("mainwindow/container_splitter", self.splitterRef.saveState())
+        core.app.Application.CONFIG.setValue("mainwindow/container_splitter", self.splitterRef.saveState())
 
     def __initUI(self):
         layout = QtWidgets.QHBoxLayout()
@@ -25,10 +26,13 @@ class Container(QtWidgets.QWidget):
         splitter.splitterMoved.connect(lambda: self._saveToConfigTimer.start())
         self.splitterRef = splitter
 
-        splitter.addWidget(Menu())
+        splitter.addWidget(LeftPanel())
+
         splitter.addWidget(Canvas())
-        splitter.addWidget(QtWidgets.QPushButton("Graph infos"))
-        splitterPreviousState = settingsInst.value("mainwindow/container_splitter")
+
+        splitter.addWidget(RightPanel())
+
+        splitterPreviousState = core.app.Application.CONFIG.value("mainwindow/container_splitter")
         if splitterPreviousState:
             splitter.restoreState(splitterPreviousState)
 
