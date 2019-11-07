@@ -1,6 +1,6 @@
 import logging
 from PyQt5 import QtCore, QtWidgets, QtGui
-from gui.mainwindow.container import Container
+from gui.mainwindow.viewer import Viewer
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -9,7 +9,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._translate = lambda msg: QtCore.QCoreApplication.translate("MainWindow", msg)
         self.setWindowIcon(QtGui.QIcon("res/icon.svg"))
 
-        self.container = None
+        self._viewer = None
 
         self.__initUI()
 
@@ -52,7 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __initUI(self):
         menuBar = self.menuBar()
 
-        # File menu
+        # File menu #
         fileMenu = menuBar.addMenu(self._translate("&File"))
 
         # Fullscreen
@@ -71,7 +71,28 @@ class MainWindow(QtWidgets.QMainWindow):
             triggered=self.close
         ))
 
-        # Help
+        # Open menu
+        openMenu = menuBar.addMenu(self._translate("&Open"))
+        def populateOpenMenu():
+            openMenu.clear()
+            logging.debug("TODO: load files in default folder")
+            openMenu.addAction(QtWidgets.QAction(
+                self._translate("&Example file"),
+                parent=openMenu,
+                triggered=lambda: logging.debug("TODO")
+            ))
+            
+            openMenu.addSeparator()
+
+            openMenu.addAction(QtWidgets.QAction(
+                self._translate("&Load from file"),
+                parent=openMenu,
+                triggered=lambda: logging.debug("TODO")
+            ))
+            pass
+        openMenu.aboutToShow.connect(populateOpenMenu)
+
+        # Help menu #
         helpMenu = menuBar.addMenu(self._translate("&Help"))
         helpMenu.addAction(QtWidgets.QAction(
             self._translate("&About"),
@@ -79,5 +100,5 @@ class MainWindow(QtWidgets.QMainWindow):
             triggered=lambda: logging.debug("TODO")
         ))
 
-        self.container = Container()
-        self.setCentralWidget(self.container)
+        self._viewer = Viewer()
+        self.setCentralWidget(self._viewer)

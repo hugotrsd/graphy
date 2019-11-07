@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 
-class RightPanel(QtWidgets.QWidget):
+class Properties(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 

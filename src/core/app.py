@@ -16,17 +16,17 @@ class Application:
         QtCore.QCoreApplication.setApplicationName("Graphs")
         QtCore.QCoreApplication.setOrganizationName("Graphs")
         QtWidgets.qApp.setDesktopSettingsAware(False)  # TODO remove
-        self.qApplication = QtWidgets.QApplication(sys.argv)
+        self._qApplication = QtWidgets.QApplication(sys.argv)
 
         # Install the signal handeler
         # @see https://stackoverflow.com/a/4939113
         signal.signal(signal.SIGINT, Application.sigint_handeler)
-        self.interpreterTimer = QtCore.QTimer()
-        self.interpreterTimer.start(200)
-        self.interpreterTimer.timeout.connect(lambda: None)
+        self._interpreterTimer = QtCore.QTimer()
+        self._interpreterTimer.start(200)
+        self._interpreterTimer.timeout.connect(lambda: None)
 
-        self.mainWindow = gui.mainwindow.mainwindow.MainWindow()
-        self.mainWindow.show()
+        self._mainWindow = gui.mainwindow.mainwindow.MainWindow()
+        self._mainWindow.show()
 
     def __del__(self):
         if Application.CONFIG is not None:
@@ -35,7 +35,7 @@ class Application:
 
     def run(self):
         logging.info("Starting application")
-        self.qApplication.exec_()
+        self._qApplication.exec_()
         logging.info("Closing application")
 
     @staticmethod

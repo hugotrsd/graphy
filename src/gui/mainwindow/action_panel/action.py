@@ -1,17 +1,17 @@
 import logging
 from PyQt5 import QtCore, QtWidgets, QtGui
-from gui.mainwindow.leftpanel.editgraph import EditGraph
-from gui.mainwindow.leftpanel.editunit import EditUnit
+from gui.mainwindow.action_panel.editgraph import EditGraph
+from gui.mainwindow.action_panel.editunit import EditUnit
 
-class LeftPanel(QtWidgets.QTabWidget):
+class Action(QtWidgets.QTabWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self._translate = lambda msg: QtCore.QCoreApplication.translate("LeftPanel", msg)
+        self._translate = lambda msg: QtCore.QCoreApplication.translate("Action", msg)
 
         self.currentChanged.connect(self.tabChanged)
 
-        self.editTabIndex = -1
-        self.searchTabIndex = -1
+        self._editTabIndex = -1
+        self._searchTabIndex = -1
 
         self.__initUI()
 
@@ -41,5 +41,5 @@ class LeftPanel(QtWidgets.QTabWidget):
             tab.setLayout(tabLayout)
             return tab
 
-        self.editTabIndex = self.addTab(editTab(), self._translate("Edit"))
-        self.searchTabIndex = self.addTab(searchTab(), self._translate("Search"))
+        self._editTabIndex = self.addTab(editTab(), self._translate("Edit"))
+        self._searchTabIndex = self.addTab(searchTab(), self._translate("Search"))

@@ -7,8 +7,8 @@ class EditGraph(QtWidgets.QGroupBox):
 
         self.setTitle("Modify the graph")  # TODO tr
 
-        self.addButton = None
-        self.removeButton = None
+        self._addButton = None
+        self._removeButton = None
 
         self.__initUI()
 
@@ -21,11 +21,11 @@ class EditGraph(QtWidgets.QGroupBox):
             return b
 
         layout = QtWidgets.QVBoxLayout()
-        self.addButton = newButton("Add mode")
-        layout.addWidget(self.addButton)
+        self._addButton = newButton("Add mode")
+        layout.addWidget(self._addButton)
 
-        self.removeButton = newButton("Remove mode")
-        layout.addWidget(self.removeButton)
+        self._removeButton = newButton("Remove mode")
+        layout.addWidget(self._removeButton)
 
-        self.addButton.setChecked(True)
+        self._addButton.setChecked(True)
         self.setLayout(layout)
