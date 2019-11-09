@@ -19,8 +19,7 @@ class Action(QtWidgets.QTabWidget):
         logging.debug("TODO: action when tab changed")
 
     def __initUI(self):
-        def editTab() -> QtWidgets.QWidget:
-            tab = QtWidgets.QWidget()
+        def initEditTab(tab: QtWidgets.QWidget):
             tabLayout = QtWidgets.QVBoxLayout()
             tabLayout.setAlignment(QtCore.Qt.AlignTop)
 
@@ -29,17 +28,17 @@ class Action(QtWidgets.QTabWidget):
             tabLayout.addWidget(EditUnit())
 
             tab.setLayout(tabLayout)
-            return tab
 
-        def searchTab() -> QtWidgets.QWidget:
-            tab = QtWidgets.QWidget()
+        def initSearchTab(tab: QtWidgets.QWidget):
             tabLayout = QtWidgets.QVBoxLayout()
             tabLayout.setAlignment(QtCore.Qt.AlignVCenter)
 
             tabLayout.addWidget(QtWidgets.QPushButton("TestSearch"))
 
             tab.setLayout(tabLayout)
-            return tab
 
-        self._editTabIndex = self.addTab(editTab(), self._translate("Edit"))
-        self._searchTabIndex = self.addTab(searchTab(), self._translate("Search"))
+        self._editTabIndex = self.addTab(QtWidgets.QWidget(), self._translate("Edit"))
+        initEditTab(self.widget(self._editTabIndex))
+
+        self._searchTabIndex = self.addTab(QtWidgets.QWidget(), self._translate("Search"))
+        initSearchTab(self.widget(self._searchTabIndex))
