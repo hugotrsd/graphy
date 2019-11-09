@@ -3,7 +3,7 @@ import core.app
 from gui.mainwindow.action_panel.action import Action
 from gui.mainwindow.editor_panel.editor import Editor
 from gui.mainwindow.properties_panel.properties import Properties
-from core.graph import Graph
+from core.graphs.graph import Graph
 
 
 class Viewer(QtWidgets.QWidget):

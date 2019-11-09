@@ -12,7 +12,7 @@ class Graph:
         self._vertices = [False]  # (isDirected: bool, adjacency_list...)
         self._vertices_names = {}  # "name": index_int
         self._vertices_weights = [False]  # (isVertexWeighted: bool, weight: float...)
-        self._edges_weights = [False, []]  # (isEdgeWeighted: bool, matrix_float(vertexStart: int, vertexEnd: int))
+        self._edges_weights = [False]  # (isEdgeWeighted: bool, matrix_float(vertexStart: int, vertexEnd: int))
 
     def title(self):
         return self._title
@@ -20,15 +20,18 @@ class Graph:
     def setTitle(self, title: str):
         self._title = title
 
+    def setVerticesFromAdjacencyList(self, adjacencyList: list, isDirected: bool):
+        self._vertices = [isDirected]
+        for i in range(1, len(adjacencyList)):
+            self._vertices.append(adjacencyList[i][:])
+
+        self._vertices_names = {str(i): i for i in range(1, len(adjacencyList))}
+
     def addVertex(self, vertex: str):
         if vertex in self._vertices_names:
             raise ValueError(f"Vertex {vertex} already exist")
         self._vertices.append([])
         self._vertices_names[vertex] = len(self._vertices) - 1
-
-    def addVertices(self, vertexList: list):
-        for v in vertexList:
-            self.addVertex(v)
 
     def removeVertex(self, vertex: str):
         try:
@@ -111,7 +114,7 @@ class Graph:
 
     @staticmethod
     def loadFromFile(fileName: str):  # -> Graph
-        if not ".json" in fileName:
+        if not fileName.endswith(".json"):
             fileName += ".json"
         with open(fileName, "r") as file:
             graphDict = json.load(file)
